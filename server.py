@@ -25,8 +25,8 @@ def get():
     return jsonify(home)
 
 
-@app.route('/user', methods=['GET'])
-# /user?id=
+@app.route('/user/id', methods=['GET'])
+# /user/id?id=
 def get_by_id():
     user_id = request.args.get('id')
     user = Example.query.filter_by(id=user_id).first()
@@ -34,6 +34,19 @@ def get_by_id():
     if user:
         user_name = {"user": user.data}
     return jsonify(user_name)
+
+
+@app.route('/user/name', methods=['GET'])
+# /user/name?name=
+def get_by_name():
+    name = request.args.get('name')
+    output = []
+    users = Example.query.all()
+    for user in users:
+        if name in user.data:
+            output.append({f"user_id: {user.id}",
+                          f"user_name: {user.data}"})
+    return str(output)
 
 
 @app.route('/user', methods=['PUT'])
