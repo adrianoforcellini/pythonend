@@ -30,7 +30,9 @@ def get():
 def get_by_id():
     user_id = request.args.get('id')
     user = Example.query.filter_by(id=user_id).first()
-    user_name = user.data
+    user_name = {"user": "User don't exist"}
+    if user:
+        user_name = {"user": user.data}
     return jsonify(user_name)
 
 
