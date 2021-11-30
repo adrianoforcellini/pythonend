@@ -36,6 +36,21 @@ def get_by_id():
     return jsonify(user_name)
 
 
+@app.route('/user', methods=['PUT'])
+# /user?id=
+def put_by_id():
+    user_id = request.args.get('id')
+    user = Example.query.filter_by(id=user_id).first()
+    data = request.get_json()
+    name = data["name"]
+    user_name = {"user": "User don't exist"}
+    if user:
+        user.data = name
+        db.session.commit()
+        return jsonify({"user": name})
+    return jsonify(user_name)
+
+
 @app.route('/post', methods=['POST'])
 def post_user():
     data = request.get_json()
