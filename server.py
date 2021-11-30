@@ -31,7 +31,6 @@ def get_by_id():
     user_id = request.args.get('id')
     user = Example.query.filter_by(id=user_id).first()
     user_name = user.data
-    print(user, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
     return jsonify(user_name)
 
 
