@@ -25,8 +25,18 @@ def get():
     return jsonify(home)
 
 
+@app.route('/user', methods=['GET'])
+# /user?id=
+def get_by_id():
+    user_id = request.args.get('id')
+    user = Example.query.filter_by(id=user_id).first()
+    user_name = user.data
+    print(user, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    return jsonify(user_name)
+
+
 @app.route('/post', methods=['POST'])
-def get_json():
+def post_user():
     data = request.get_json()
     name = data["name"]
     new_insertion = Example(str(name))
